@@ -197,7 +197,7 @@ Then, make sure your base argument is hooked up to your base field and base inpu
 ```ruby
 class Types::BaseField < GraphQL::Schema::Field
   argument_class Types::BaseArgument
-  # PS: see "Authorizing Fields" to make sure your base field is hooked up to objects, interfaces and mutations
+  # PS: see "Authorizing Fields" to make sure your base field is hooked up to objects, intefaces and mutations
 end
 
 class Types::BaseInputObject < GraphQL::Schema::InputObject
@@ -232,11 +232,8 @@ Also, you can configure [unauthorized object handling](#unauthorized-mutations)
 Add `MutationIntegration` to your base mutation, for example:
 
 ```ruby
-class Mutations::BaseMutation < GraphQL::Schema::Mutation
-  include GraphQL::Pro::PunditIntegration::MutationIntegration
-
-  # Also, to use argument-level authorization:
-  argument_class Types::BaseArgument
+class Mutations::BaseMutation < GraphQL::Schema::RelayClassicMutation
+  include GraphQL::Pro::PunditIntegration
 end
 ```
 

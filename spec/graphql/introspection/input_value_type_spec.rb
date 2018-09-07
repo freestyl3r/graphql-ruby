@@ -40,7 +40,7 @@ describe GraphQL::Introspection::InputValueType do
           ]
         }
       }}
-    assert_equal(expected, result.to_h)
+    assert_equal(expected, result)
   end
 
   let(:cheese_type) {

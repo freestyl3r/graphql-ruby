@@ -292,19 +292,11 @@ RUBY
       new = %{field :name, String, null: false}
       assert_equal new, upgrade(old)
 
-      old = %{field :name, types.String.to_non_null_type}
-      new = %{field :name, String, null: false}
-      assert_equal new, upgrade(old)
-
       old = %{field :name, !types.String, "description", method: :name_full}
       new = %{field :name, String, "description", method: :name_full, null: false}
       assert_equal new, upgrade(old)
 
       old = %{field :name, -> { !types.String }}
-      new = %{field :name, String, null: false}
-      assert_equal new, upgrade(old)
-
-      old = %{field :name, -> { types.String.to_non_null_type }}
       new = %{field :name, String, null: false}
       assert_equal new, upgrade(old)
 
@@ -316,15 +308,7 @@ RUBY
       new = %{field :name, Name.connection_type, "names", null: false, connection: true}
       assert_equal new, upgrade(old)
 
-      old = %{connection :name, Name.connection_type.to_non_null_type, "names"}
-      new = %{field :name, Name.connection_type, "names", null: false, connection: true}
-      assert_equal new, upgrade(old)
-
       old = %{field :names, types[!types.String]}
-      new = %{field :names, [String], null: true}
-      assert_equal new, upgrade(old)
-
-      old = %{field :names, types[types.String.to_non_null_type]}
       new = %{field :names, [String], null: true}
       assert_equal new, upgrade(old)
 
@@ -358,32 +342,7 @@ RUBY
       assert_equal new, upgrade(old)
 
       old = %{
-        field :name, types.String.to_non_null_type do
-          description "abc"
-        end
-
-        field :name2, types.Int.to_non_null_type do
-          description "def"
-        end
-      }
-      new = %{
-        field :name, String, description: "abc", null: false
-
-        field :name2, Integer, description: "def", null: false
-      }
-      assert_equal new, upgrade(old)
-
-      old = %{
         field :name, -> { !types.String } do
-        end
-      }
-      new = %{
-        field :name, String, null: false
-      }
-      assert_equal new, upgrade(old)
-
-      old = %{
-        field :name, -> { types.String.to_non_null_type } do
         end
       }
       new = %{
@@ -418,22 +377,6 @@ RUBY
       assert_equal new, upgrade(old)
 
       old = %{
-        field :name do
-          type String.to_non_null_type
-        end
-
-        field :name2 do
-          type String.to_non_null_type
-        end
-      }
-      new = %{
-        field :name, String, null: false
-
-        field :name2, String, null: false
-      }
-      assert_equal new, upgrade(old)
-
-      old = %{
         field :name, -> { types.String },
           "newline description" do
         end
@@ -445,16 +388,6 @@ RUBY
 
       old = %{
         field :name, -> { !types.String },
-          "newline description" do
-        end
-      }
-      new = %{
-        field :name, String, "newline description", null: false
-      }
-      assert_equal new, upgrade(old)
-
-      old = %{
-        field :name, -> { types.String.to_non_null_type },
           "newline description" do
         end
       }

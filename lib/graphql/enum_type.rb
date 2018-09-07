@@ -147,10 +147,6 @@ module GraphQL
         GraphQL::NameValidator.validate!(new_name)
         @name = new_name
       end
-
-      def graphql_name
-        name
-      end
     end
 
     class UnresolvedValueError < GraphQL::Error

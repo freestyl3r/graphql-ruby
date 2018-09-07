@@ -315,7 +315,7 @@ describe GraphQL::Schema::Validation do
     let(:null_default_value) {
       GraphQL::Argument.define do
         name "NullDefault"
-        type Dummy::DairyAnimal
+        type Dummy::DairyAnimalEnum
         default_value nil
       end
     }

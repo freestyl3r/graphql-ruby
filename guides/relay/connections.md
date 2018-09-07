@@ -78,8 +78,6 @@ end
 
 # Make a customized connection type
 class PostConnectionWithTotalCountType < GraphQL::Types::Relay::BaseConnection
-  edge_type(PostEdgeType)
-
   field :total_count, Integer, null: false
   def total_count
     # - `object` is the Connection
